@@ -840,12 +840,16 @@ bool CUser::IsValidUserName(const CString& sUserName) {
 		return false;
 	}
 
-	if ((*p < 'a' || *p > 'z') && (*p < 'A' || *p > 'Z')) {
+	if (((*p < 'a' || *p > 'z') && (*p < 'A' || *p > 'Z')) ||
+			(*p == '|') || (*p == '\\') || (*p == '[') ||
+			(*p == ']') || (*p == '[') || (*p == '}')) {
 		return false;
 	}
 
 	while (*p) {
-		if (*p != '@' && *p != '.' && *p != '-' && *p != '_' && !isalnum(*p)) {
+		if (*p != '@' && *p != '.' && *p != '-' && *p != '_' && *p != '|' &&
+				*p != '\\' && *p != '[' && *p != ']' &&
+				*p != '{' && *p != '}' && !isalnum(*p)) {
 			return false;
 		}
 
